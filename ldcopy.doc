@@ -1,0 +1,42 @@
+The LDCOPY driver
+-----------------
+
+This is a simple OS/2 driver for copying files while CONFIG.SYS is being
+processed.  There are various reasons why you might want to do this; for
+example, copying different versions of a file into a known place.  Used
+in conjunction with the facility for alternate CONFIG.SYS files, it can
+be a useful tool. 
+
+The LDCOPY driver performs no useful function except at initialisation
+time.  It uses the DosCopy API call to copy the files; this is not
+directly documented as a legal call from driver initialisation, but it
+seems to work (DosRead, DosWrite, DosOpen and DosClose are OK, so I'd
+expect it to be too; it isn't specifically excluded), and indeed has
+worked since the early betas of OS/2 2.0 back in 1991!
+
+To use the driver, place it in a directory of your choice (e.g. C:\OS2), and
+add a DEVICE statement to the CONFIG.SYS file, e.g.:
+
+                DEVICE=C:\OS2\LDCOPY.SYS sourcefile destinationfile
+
+where 'sourcefile' specifies the name of the file to be copied, and
+'destinationfile' specifies the place to which it is to be copied.  Both
+filenames must be fully qualified (i.e.  include drive and pathname). 
+One limitation is that filenames which include spaces are not supported. 
+Any existing 'destinationfile' is overwritten. 
+
+Call the driver multiple times if you want to copy more than one file.
+
+The driver unloads after doing its job, so there is no permanent use of
+memory. 
+
+History:
+1.0	Initial version.
+1.1	Use noncritical init error to unload completely.
+
+Bob Eager
+rde@tavi.co.uk
+http://www.tavi.co.uk/os2pages/
+
+April 2003
+

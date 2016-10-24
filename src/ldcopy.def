@@ -1,0 +1,7 @@
+LIBRARY		LDCOPY
+DESCRIPTION	'$@#Bob Eager:1.1#@Device driver for copying files'
+PROTMODE
+SEGMENTS
+		_DATA CLASS 'DATA'
+		_TEXT CLASS 'CODE'
+
